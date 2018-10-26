@@ -1,7 +1,7 @@
-# alc/weblio on zsh
+# alc/weblio on command-line
 
 英和及び和英の翻訳コマンドです。
-zshでalcを用いた英和辞典や和英辞典を使用したいというモチベーションで書きました。
+command-lineでalcを用いた英和辞典や和英辞典を使用したいというモチベーションで書きました。
 alcの検索結果の部分を切り取って表示しています。
 画面内に収まって欲しかったので例も切り取っています。
 itermなどで半透明にしてhot keyを設定しておくと翻訳や論文を読むのが捗ります。
@@ -27,7 +27,7 @@ $ brew install w3m
 ### git cloneしPATHを通す
 
 ```zsh
-$ git clone https://github.com/tocci3/dict
+$ git clone https://github.com/tocci3/dict.git
 $ cd dict
 $ prefix=/usr/local
 $ cp -p alc $prefix/bin/ # コマンドとして使用可能に
@@ -108,6 +108,5 @@ $ alc -v
 
 ## ToDo
 
-* シンボリックリンクを貼るときのコマンドをコピペだけでできるように
 * -iモードを終了する際にEOFではなくReturnでも終了してしまうbugをどの方向に修正するか
 * openの一般化
