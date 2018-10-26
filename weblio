@@ -2,7 +2,8 @@
 
 # option
 CMDNAME=`basename $0`
-url="http://eow.alc.co.jp/search?q="
+#url="http://eow.alc.co.jp/search?q="
+url="https://ejje.weblio.jp/content/"
 while getopts hiov OPT
 do
   case $OPT in
@@ -26,7 +27,7 @@ if [[ "$FLG_h" = "TRUE" ]]; then
   exit 0
 fi
 if [[ "$FLG_o" = "TRUE" ]]; then
-  open "$url"$1
+  open "${url}$*"
   exit 0
 fi
 if [[ "$FLG_v" = "TRUE" ]]; then
@@ -40,28 +41,29 @@ white=`tput setaf 7`
 reset=`tput sgr0`
 bold=`tput bold`
 # alc
-func_alc(){
+search(){
   #echo "$*"
   local w=$(echo "$*" |sed 's/ /+/g')
   #echo "$w"
-  local NUM=`w3m -no-cookie -dump "$url$w" | grep -n $(echo 単語帳|nkf -w) | head -1 | awk -F ':' '{print $1}'`
-  local NULL=""
-  if [[ $NUM = $NULL ]]; then
-    echo "${red}failed${reset}"
-  else
-    NUM=`expr $NUM - 1`
-    local dic=`w3m -no-cookie -dump "$url"$w | head -$NUM | tail -n +36`
-    echo "${white}${dic}${reset}"
-  fi
+  w3m -no-cookie -dump "$url$w" | grep 主な | head -1
+  #local NUM=`w3m -no-cookie -dump "$url$w" | grep -n 主な | head -1 | awk -F ':' '{print $1}'`
+#  local NULL=""
+#  if [[ $NUM = $NULL ]]; then
+#    echo "${red}failed${reset}"
+#  else
+#    NUM=`expr $NUM - 1`
+#    local dic=`w3m -no-cookie -dump "$url"$w | head -$NUM | tail -n +36`
+#    echo "${white}${dic}${reset}"
+#  fi
 }
-func_alc "$*"
+search "$*"
 if [[ "$FLG_i" = "TRUE" ]]; then
   echo $NULL
   echo -n "${bold}${green}alc>${reset} "
   read str
   while [[ "$str" != $NULL ]]
   do
-    func_alc "$str"
+    search "$str"
     echo $NULL
     echo -n "${bold}${green}alc>${reset} "
     read str
